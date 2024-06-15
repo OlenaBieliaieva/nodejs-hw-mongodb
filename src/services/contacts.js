@@ -21,7 +21,8 @@ export const updateContacts = async (contactId, payload, options = {}) => {
     includeResultMetadana: true,
     ...options,
   });
-  if (!rawPatch || !rawPatch.value) return null;
+
+  if (!rawPatch) return null;
   return {
     contact: rawPatch.value,
     isNew: Boolean(rawPatch?.lastErrorObject?.upserted),
