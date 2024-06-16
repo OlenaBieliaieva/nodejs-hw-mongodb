@@ -24,7 +24,7 @@ export const updateContacts = async (contactId, payload, options = {}) => {
 
   if (!rawPatch) return null;
   return {
-    contact: rawPatch.value,
+    contact: rawPatch,
     isNew: Boolean(rawPatch?.lastErrorObject?.upserted),
   };
 };
