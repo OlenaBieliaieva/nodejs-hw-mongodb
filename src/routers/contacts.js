@@ -12,25 +12,25 @@ import {
   createContactSchema,
   updateContactSchema,
 } from '../validation/contacts.js';
+import { authenticate } from '../middlewares/authenticate.js';
+import { checkUserTokenId } from '../middlewares/checkUserTokenId.js';
 
-const router = Router();
+const contactRouter = Router();
 
-router.get('/contacts', ctrlWrapper(getContactsController));
-
-router.get('/contacts/:contactId', ctrlWrapper(getContactByIdController));
-
-router.post(
-  '/contacts',
+contactRouter.use(authenticate);
+contactRouter.use('/:contactId', checkUserTokenId);
+contactRouter.get('/', ctrlWrapper(getContactsController));
+contactRouter.get('/:contactId', ctrlWrapper(getContactByIdController));
+contactRouter.delete('/:contactId', ctrlWrapper(deleteContactController));
+contactRouter.patch(
+  '/:contactId',
+  validateBody(updateContactSchema),
+  ctrlWrapper(patchContactController),
+);
+contactRouter.post(
+  '/',
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
 
-router.patch(
-  '/contacts/:contactId',
-  validateBody(updateContactSchema),
-  ctrlWrapper(patchContactController),
-);
-
-router.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
-
-export default router;
+export default contactRouter;
