@@ -65,7 +65,6 @@ export const updateContacts = async (
       ...options,
     },
   );
-  console.log(rawPatch);
   if (!rawPatch) return null;
   return {
     contact: rawPatch,
