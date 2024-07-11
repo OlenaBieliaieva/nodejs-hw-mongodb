@@ -7,6 +7,7 @@ export const getAllContacts = async ({
   perPage,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
+  // sortBy = 'name',
   filter = {},
   userId,
 }) => {
